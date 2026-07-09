@@ -14,13 +14,23 @@ promptEvaluations = PromptEvaluations(client, model)
 evaluationData = EvaluationData('dataset.json')
 
 # Prompt engineering rules to replace prefilling
-promptRules = """
+plain_text_prompt_rules = """
 Rules:
 - Return only plain text
 - Do not use markdown
 - Do not include comments
 - Do not include explanations
 - After the plain text, write END_OF_COMMANDS
+"""
+
+json_prompt_rules = """
+Rules:
+- Return only valid JSON
+- Do not use markdown
+- Do not include comments
+- Do not include explanations outside the JSON
+- Do not include trailing commas
+- After the JSON, write END_OF_COMMANDS
 """
 
 # Provide Claude with context to customize how Claude responds to user input
@@ -44,7 +54,7 @@ def initialPromptCall():
     initial_prompt = f"""
     Please provide a solution to the following task:
     {task}
-    {promptRules}
+    {plain_text_prompt_rules}
     """
 
     promptEvaluations.storeUserInputs(initial_prompt)
@@ -77,7 +87,7 @@ def generateEvaluationDataset():
     * Focus on tasks that do not require writing much code
 
     Please generate 3 objects.
-    {promptRules}
+    {plain_text_prompt_rules}
     """
 
     dataset_system_prompt = """
@@ -99,10 +109,69 @@ def testInitialPromptDraft():
         prompt = f"""
         Please provide a solution to the following task:
         {data}
-        {promptRules}
+        {plain_text_prompt_rules}
         """
         promptEvaluations.storeUserInputs(prompt)
 
         claudeResponse = promptEvaluations.askClaude(evaluation_system_prompt)
 
         promptEvaluations.storeClaudeResponse(claudeResponse)
+
+# Evaluate Claude's output using Claude
+def gradeByModel():
+    model_grading_results = []
+    model_grading_scores = []
+    grading_prompt = f"""
+    Evalulate this AI-generated solution
+    """
+
+    system_prompt = "You are an expert code reviewer"
+
+    dataset = evaluationData.getEvaluationDataset()
+
+    for data in dataset:
+        prompt = f"""
+        Please provide a solution to the following task:
+        {data}
+        {plain_text_prompt_rules}
+        """
+        promptEvaluations.storeUserInputs(prompt)
+
+        claudeResponse = promptEvaluations.askClaude(evaluation_system_prompt)
+
+        promptEvaluations.storeClaudeResponse(claudeResponse)
+
+        model_grading_prompt = f"""
+        {grading_prompt}
+        Task: {data}
+        Solution: {claudeResponse}
+
+        Return only valid JSON in this exact shape:
+        {{
+        "strengths": ["very short strength"],
+        "weaknesses": ["very short weakness"],
+        "reasoning": "One very short sentence.",
+        "score": 7
+        }}
+
+        {json_prompt_rules}
+        """
+
+        promptEvaluations.storeUserInputs(model_grading_prompt)
+
+        claudeGradingResult = promptEvaluations.askClaude(system_prompt)
+
+        claudeJSONGradingResult = json.loads(claudeGradingResult)
+
+        model_grading_results.append(promptEvaluations.generateTestCaseReport(data, claudeResponse, claudeJSONGradingResult))
+
+        promptEvaluations.storeClaudeResponse(claudeGradingResult)
+
+    for result in model_grading_results:
+        model_grading_scores.append(result["score"])
+
+    average = promptEvaluations.calculateAverage(model_grading_scores)
+
+    print(f"Average score: {average}")
+
+gradeByModel()
