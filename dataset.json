@@ -1,0 +1,11 @@
+[
+  {
+    "task": "Create a Python function to extract the AWS region from an ARN"
+  },
+  {
+    "task": "Write a regex to validate an S3 bucket name according to AWS naming rules"
+  },
+  {
+    "task": "Create a JSON object representing an IAM policy that grants read-only access to a specific S3 bucket"
+  }
+]

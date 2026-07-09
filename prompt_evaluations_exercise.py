@@ -15,7 +15,9 @@ class PromptEvaluations:
 
     # Store Claude's response to the message history
     def storeClaudeResponse(self, response):
-        self.messages.append({"role": "assistant", "content": response})
+        self.messages.append({
+            "role": "assistant", "content": response.strip()
+            })
 
     # Stream Claude's output and get the the final message
     def streamClaudeResponse(self, parameter):
@@ -52,4 +54,24 @@ class PromptEvaluations:
 
         claude_response = self.streamClaudeResponse(parameters)
 
-        return claude_response
+        return "\n".join(claude_response)
+    
+    # Use Claude to generate the evaluation dataset
+    def generateDataset(self, system_prompt=None):
+        parameters = {
+            "model": self.model,
+            "max_tokens": 1000,
+            "messages": self.messages
+        }
+
+        if system_prompt:
+            parameters["system"] = system_prompt
+
+        if self.stop_sequences:
+            parameters["stop_sequences"] = self.stop_sequences
+
+        claudeResponse = self.client.messages.create(**parameters)
+
+        for block in claudeResponse.content:
+            if block.type == "text":
+                return block.text
