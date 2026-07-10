@@ -3,6 +3,7 @@ from anthropic import Anthropic
 import json
 from prompt_evaluations_exercise import PromptEvaluations
 from evaluation_dataset import EvaluationData
+from syntax_validation import SyntaxValidation
 
 load_dotenv()
 
@@ -10,8 +11,8 @@ client = Anthropic()
 model = "claude-sonnet-5"
 
 promptEvaluations = PromptEvaluations(client, model)
-
 evaluationData = EvaluationData('dataset.json')
+syntaxValidation = SyntaxValidation()
 
 # Prompt engineering rules to replace prefilling
 plain_text_prompt_rules = """
@@ -79,6 +80,7 @@ def generateEvaluationDataset():
     [
         {{
             "task": "Description of task",
+            "format: "JSON"
         }},
         ...additional
     ]
@@ -117,10 +119,25 @@ def testInitialPromptDraft():
 
         promptEvaluations.storeClaudeResponse(claudeResponse)
 
+# Verify that the generated code has valid syntax and follows the correct format
+def gradeSyntax(task, generated_output):
+    format = task["format"]
+    synax_score = 0
+
+    if format == "Python":
+        synax_score = syntaxValidation.validate_regex(generated_output)
+
+    elif format == "JSON":
+        synax_score = syntaxValidation.validate_json(generated_output)
+
+    else:
+        synax_score = syntaxValidation.validate_regex(generated_output)
+
+    return synax_score
+        
 # Evaluate Claude's output using Claude
 def gradeByModel():
     model_grading_results = []
-    model_grading_scores = []
     grading_prompt = f"""
     Evalulate this AI-generated solution
     """
@@ -141,6 +158,7 @@ def gradeByModel():
 
         promptEvaluations.storeClaudeResponse(claudeResponse)
 
+        # Used this strict shape to ensure low max_token limits do not cause errors
         model_grading_prompt = f"""
         {grading_prompt}
         Task: {data}
@@ -162,6 +180,10 @@ def gradeByModel():
         claudeGradingResult = promptEvaluations.askClaude(system_prompt)
 
         claudeJSONGradingResult = json.loads(claudeGradingResult)
+
+        syntax_score = gradeSyntax(data, claudeResponse)
+
+        claudeJSONGradingResult["score"] += syntax_score
 
         model_grading_results.append(promptEvaluations.generateTestCaseReport(data, claudeResponse, claudeJSONGradingResult))
 

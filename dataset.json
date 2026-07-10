@@ -1,11 +1,14 @@
 [
   {
-    "task": "Create a Python function to extract the AWS region from an ARN"
+    "task": "Write a regex to validate and extract the AWS account ID (12 digits) from an IAM role ARN string",
+    "format": "Regex"
   },
   {
-    "task": "Write a regex to validate an S3 bucket name according to AWS naming rules"
+    "task": "Write a Python function that takes an S3 bucket name and object key and returns the corresponding HTTPS URL for the object",
+    "format": "Python"
   },
   {
-    "task": "Create a JSON object representing an IAM policy that grants read-only access to a specific S3 bucket"
+    "task": "Create a JSON object representing an IAM policy that grants read-only access to a specific S3 bucket",
+    "format": "JSON"
   }
 ]
