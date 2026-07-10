@@ -103,5 +103,5 @@ class PromptEvaluations:
         }
     
     # Calculate an average score across all test cases
-    def calculateAverage(self, claude_grade_results):
-        return mean([int(claude_grade_results["score"])])
+    def calculateAverage(self, claude_grade_scores):
+        return mean(claude_grade_scores)

@@ -167,10 +167,9 @@ def gradeByModel():
 
         promptEvaluations.storeClaudeResponse(claudeGradingResult)
 
-    for result in model_grading_results:
-        model_grading_scores.append(result["score"])
+        scores = [result["score"] for result in model_grading_results]
 
-    average = promptEvaluations.calculateAverage(model_grading_scores)
+    average = promptEvaluations.calculateAverage(scores)
 
     print(f"Average score: {average}")
 
