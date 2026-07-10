@@ -80,7 +80,8 @@ def generateEvaluationDataset():
     [
         {{
             "task": "Description of task",
-            "format: "JSON"
+            "format: "JSON",
+            "solution_criteria": "Key criteria for evaluating the solution"
         }},
         ...additional
     ]
@@ -147,9 +148,12 @@ def gradeByModel():
     dataset = evaluationData.getEvaluationDataset()
 
     for data in dataset:
+        solution_criteria = data["solution_criteria"]
         prompt = f"""
         Please provide a solution to the following task:
         {data}
+        Criteria you should use to evaluation the solution
+        {solution_criteria}
         {plain_text_prompt_rules}
         """
         promptEvaluations.storeUserInputs(prompt)
@@ -163,6 +167,8 @@ def gradeByModel():
         {grading_prompt}
         Task: {data}
         Solution: {claudeResponse}
+
+
 
         Return only valid JSON in this exact shape:
         {{
