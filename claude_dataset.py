@@ -7,11 +7,29 @@ import json
 
 class ClaudeDataset:
     def __init__(self, model, client):
-        self.model = model,
+        self.model = model
         self.client = client
         self.messages = []
         self.stop_sequences = []
         self.dataset_file = ""
+
+    # Store user input into message history
+    def storeUserInput(self, message):
+        self.messages.append(
+            {
+                "role": "user",
+                "content": message
+            }
+        )
+    
+    # Store Claude response into message history
+    def storeClaudeResponse(self, response):
+        self.messages.append(
+            {
+                "role": "assistant",
+                "content": response
+            }
+        )
 
     # Store the dataset in dataset.json
     def setEvaluationDataset(self, dataset):
