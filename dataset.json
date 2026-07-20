@@ -1,17 +1,17 @@
 [
   {
-    "content": "The rapid proliferation of microplastics in marine ecosystems has become a critical environmental concern. Recent studies indicate that these particles accumulate in the tissues of filter-feeding organisms, potentially disrupting endocrine functions and bioaccumulating through trophic levels, ultimately posing risks to both marine biodiversity and human health via seafood consumption.",
+    "content": "Recent advances in CRISPR-Cas9 gene editing have enabled precise modifications to plant genomes, allowing researchers to enhance drought resistance in staple crops such as wheat and maize. These developments hold significant promise for improving global food security amid changing climate conditions.",
     "format": "text",
-    "solution_criteria": "Should include topics such as microplastics, marine ecosystems, bioaccumulation, endocrine disruption, and human health risks from seafood consumption."
+    "solution_criteria": "Should include topics such as CRISPR-Cas9, gene editing, drought resistance, crop improvement, food security, and climate change."
   },
   {
-    "content": "Recent advances in CRISPR-Cas9 gene editing have enabled precise modifications of the human genome, offering promising therapeutic avenues for genetic disorders such as sickle cell anemia. However, ethical concerns regarding germline editing and off-target mutations continue to challenge widespread clinical adoption, necessitating robust regulatory frameworks.",
+    "content": "The rise of social media platforms has transformed political discourse, enabling rapid dissemination of information but also facilitating the spread of misinformation. This paper examines how algorithmic curation influences public opinion formation and contributes to increasing polarization among voters.",
     "format": "text",
-    "solution_criteria": "Should include topics such as CRISPR-Cas9, gene editing, genetic disorders, sickle cell anemia, ethical concerns, germline editing, and regulatory frameworks."
+    "solution_criteria": "Should include topics such as social media, political discourse, misinformation, algorithmic curation, public opinion, and polarization."
   },
   {
-    "content": "Urban heat islands, exacerbated by dense infrastructure and reduced vegetation, significantly elevate local temperatures compared to surrounding rural areas. This phenomenon intensifies energy demand for cooling, worsens air quality, and disproportionately affects low-income communities, highlighting the urgent need for green infrastructure and equitable climate adaptation policies.",
+    "content": "Deep learning architectures, particularly transformer-based models, have significantly improved natural language processing tasks including machine translation and sentiment analysis. This study evaluates their computational efficiency and proposes optimization techniques to reduce energy consumption during large-scale model training.",
     "format": "text",
-    "solution_criteria": "Should include topics such as urban heat islands, energy demand, air quality, low-income communities, green infrastructure, and climate adaptation policies."
+    "solution_criteria": "Should include topics such as deep learning, transformer models, natural language processing, machine translation, sentiment analysis, and energy efficiency."
   }
 ]

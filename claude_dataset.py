@@ -3,33 +3,13 @@ Objectives:
 - Generate evaluation datasets with Claude
 - Grade the prompt based on the output, using the evaluation dataset with Claude
 """
+from claude_chat import ClaudeChat
 import json
 
 class ClaudeDataset:
     def __init__(self, model, client):
-        self.model = model
-        self.client = client
-        self.messages = []
-        self.stop_sequences = []
+        self.claude_chat = ClaudeChat(model, client)
         self.dataset_file = ""
-
-    # Store user input into message history
-    def storeUserInput(self, message):
-        self.messages.append(
-            {
-                "role": "user",
-                "content": message
-            }
-        )
-    
-    # Store Claude response into message history
-    def storeClaudeResponse(self, response):
-        self.messages.append(
-            {
-                "role": "assistant",
-                "content": response
-            }
-        )
 
     # Store the dataset in dataset.json
     def setEvaluationDataset(self, dataset):
@@ -46,22 +26,15 @@ class ClaudeDataset:
         return dataset
 
     # Use Claude to generate the evaluation dataset and store them in dataset.json
-    def generateDataset(self, system_prompt=None):
-        parameters = {
-            "model": self.model,
-            "max_tokens": 1000,
-            "messages": self.messages
-        }
+    def generateDataset(self, dataset_prompt):
+        self.dataset_file = "dataset.json"
 
-        if system_prompt:
-            parameters["system"] = system_prompt
-
-        if self.stop_sequences:
-            parameters["stop_sequences"] = self.stop_sequences
+        self.claude_chat.stop_sequences.append("END_OF_COMMANDS")
         
-        claude_response = self.client.messages.create(**parameters)
+        dataset_system_prompt = """
+        You are an expert in creating accurate, useful, and exhaustive evaluation datasets.
+        You follow industry best practices when it comes to generating prompt evaluation datasets
+        """
+        claude_response = self.claude_chat.askClaudeSingle(dataset_prompt, dataset_system_prompt)
 
-        for block in claude_response.content:
-            if block.type == "text":
-                self.setEvaluationDataset(block.text)
-                return
+        self.setEvaluationDataset(claude_response)

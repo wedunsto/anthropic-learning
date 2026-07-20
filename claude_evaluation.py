@@ -15,7 +15,7 @@ class ClaudeEvaluation:
     Run the dataset against the prompt
     Returns Claude's solution
     """
-    def testPrompt(self, dataset, prompt_rules):
+    def testPrompt(self, dataset, prompt, prompt_rules):
         prompt_test_results = []
 
         self.claude_chat.stop_sequences.append("END_OF_COMMANDS")
@@ -24,19 +24,15 @@ class ClaudeEvaluation:
 
         for data in dataset:
             solution_criteria = data["solution_criteria"]
-            prompt = f"""
-            Please provide a solution to the following task:
+            extended_prompt = f"""
+            {prompt}
             {data}
             Criteria you should use to evaluate the solution
             {solution_criteria}
             {prompt_rules}
             """
 
-            self.claude_chat.userInput(prompt)
-
-            claude_response = self.claude_chat.askClaude(system_prompt)
-
-            self.claude_chat.claudeResponse(claude_response)
+            claude_response = self.claude_chat.askClaudeSingle(extended_prompt, system_prompt)
 
             prompt_test_results.append(claude_response)
 
@@ -56,18 +52,18 @@ class ClaudeEvaluation:
 
             Return only valid JSON in this exact shape:
             {{
-            "strengths": ["very short strength"],
+            "strengths": ["very short strength."],
             "weaknesses": ["very short weakness"],
             "reasoning": "One very short sentence.",
             "score": 7
             }}
 
             {prompt_rules}
+            - Return exactly one valid JSON object
+            - Do not wrap the JSON in ```json or ```
             """
 
-            self.claude_chat.userInput(model_grading_prompt)
-
-            claude_response = self.claude_chat.askClaude(system_prompt)
+            claude_response = self.claude_chat.askClaudeSingle(model_grading_prompt, system_prompt)
 
             claude_grading_results.append(claude_response)
 
@@ -103,4 +99,4 @@ class ClaudeEvaluation:
             code_grade = code_grades[index]
             scores.append(code_grade["score"])
 
-        return mean(scores)        
+        return mean(scores)
