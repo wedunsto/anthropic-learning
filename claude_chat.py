@@ -5,29 +5,31 @@ Objectives:
 """
 
 class ClaudeChat:
-    def __init__(self, model, client):
+    def __init__(self, model, client, messages=None):
         self.client = client
         self.model = model
-        self.messages = []
+        self.messages = messages
         self.stop_sequences = []
 
     # Store user input into the message history
     def userInput(self, message):
-        self.messages.append(
-            {
-                "role": "user",
-                "content": message.strip()
-            }
-        )
+        if self.messages:
+            self.messages.append(
+                {
+                    "role": "user",
+                    "content": message.strip()
+                }
+            )
 
     # Store Claude response into the message history
     def claudeResponse(self, response):
-        self.messages.append(
-            {
-                "role": "assistant",
-                "content": response.strip()
-            }
-        )
+        if self.messages:
+            self.messages.append(
+                {
+                    "role": "assistant",
+                    "content": response.strip()
+                }
+            )
 
     # Stream Claude's response to show the response generate in the terminal
     def streamClaudeResponse(self, parameters):
@@ -61,9 +63,11 @@ class ClaudeChat:
     def askClaude(self, system_prompt=None, streaming=False):
         parameters={
             "model": self.model,
-            "max_tokens": 1000,
-            "messages": self.messages
+            "max_tokens": 1000
         }
+
+        if self.messages:
+            parameters["messages"] = self.messages
 
         # Provide context to customize Claude's output
         if system_prompt:

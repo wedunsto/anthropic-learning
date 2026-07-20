@@ -1,11 +1,17 @@
 [
   {
-    "content": "The rapid proliferation of antibiotic-resistant bacterial strains has emerged as a critical challenge in contemporary clinical medicine. Overuse and misuse of antimicrobial agents in both healthcare and agricultural settings have accelerated the evolution of resistance mechanisms among pathogenic microorganisms. This paper examines the molecular pathways through which bacteria acquire resistance genes via horizontal gene transfer, plasmid exchange, and spontaneous mutation, while also evaluating current stewardship programs designed to mitigate the spread of multidrug-resistant organisms across hospital environments."
+    "content": "The rapid proliferation of microplastics in marine ecosystems has become a critical environmental concern. Recent studies indicate that these particles accumulate in the tissues of filter-feeding organisms, potentially disrupting endocrine functions and bioaccumulating through trophic levels, ultimately posing risks to both marine biodiversity and human health via seafood consumption.",
+    "format": "text",
+    "solution_criteria": "Should include topics such as microplastics, marine ecosystems, bioaccumulation, endocrine disruption, and human health risks from seafood consumption."
   },
   {
-    "content": "Climate change continues to exert profound effects on global biodiversity, particularly within marine ecosystems where rising ocean temperatures and acidification threaten coral reef structures. This study investigates the physiological stress responses of reef-building corals exposed to simulated thermal anomalies, analyzing symbiotic algae expulsion and subsequent bleaching events. Findings suggest that certain coral species exhibit adaptive resilience through microbiome diversification, offering potential insights for conservation strategies aimed at preserving reef biodiversity amid ongoing environmental degradation and anthropogenic pressures."
+    "content": "Recent advances in CRISPR-Cas9 gene editing have enabled precise modifications of the human genome, offering promising therapeutic avenues for genetic disorders such as sickle cell anemia. However, ethical concerns regarding germline editing and off-target mutations continue to challenge widespread clinical adoption, necessitating robust regulatory frameworks.",
+    "format": "text",
+    "solution_criteria": "Should include topics such as CRISPR-Cas9, gene editing, genetic disorders, sickle cell anemia, ethical concerns, germline editing, and regulatory frameworks."
   },
   {
-    "content": "Recent advancements in deep learning architectures have significantly improved natural language processing capabilities, particularly in tasks involving semantic understanding and contextual disambiguation. This research explores the application of transformer-based models to low-resource languages, addressing challenges related to limited training data and linguistic diversity. By employing transfer learning techniques and cross-lingual embeddings, the proposed framework demonstrates measurable improvements in translation accuracy and syntactic parsing, contributing to broader efforts toward equitable language technology accessibility across underrepresented linguistic communities worldwide."
+    "content": "Urban heat islands, exacerbated by dense infrastructure and reduced vegetation, significantly elevate local temperatures compared to surrounding rural areas. This phenomenon intensifies energy demand for cooling, worsens air quality, and disproportionately affects low-income communities, highlighting the urgent need for green infrastructure and equitable climate adaptation policies.",
+    "format": "text",
+    "solution_criteria": "Should include topics such as urban heat islands, energy demand, air quality, low-income communities, green infrastructure, and climate adaptation policies."
   }
 ]
