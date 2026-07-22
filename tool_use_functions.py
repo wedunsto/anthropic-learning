@@ -1,12 +1,11 @@
 """
 Objectives: Create tool functions to create structured ways for Claude to request fresh information
 """
-import datetime
 import json
 import inspect
 
 from claude_chat import ClaudeChat
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 class ClaudeTool:
     def __init__(self, model, client):
@@ -101,3 +100,4 @@ class ClaudeTool:
         claude_response = self.claude_chat.askClaudeSingle(tool_schema_prompt, tool_schema_system_prompt)
 
         return claude_response
+    
