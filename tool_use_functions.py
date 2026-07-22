@@ -23,11 +23,11 @@ class ClaudeTool:
         weekdays = {
             "monday": 0,
             "tuesday":1,
-            "monday": 2,
-            "monday": 3,
-            "monday": 4,
-            "monday": 5,
-            "monday": 0,
+            "wednesday": 2,
+            "thursday": 3,
+            "friday": 4,
+            "saturday": 5,
+            "sunday": 0,
         }
         
         normalized_weekday = weekday.strip().lower()
@@ -41,7 +41,7 @@ class ClaudeTool:
         
         target_date = current_date + timedelta(days=days_ahead)
         
-        return target_date.strftime(self.date_format)
+        return target_date
     
     # Tool function to set the a reminder for a future date
     def setAppointmentReminder(self, future_date):
