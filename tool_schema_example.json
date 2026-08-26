@@ -1,0 +1,14 @@
+{
+    "name": "getCurrentDate",
+	"description": "Returns the current date and time",
+	"input_schema": {
+		"type": "object",
+			"properties": {
+				"date_format": {
+					"type": "string",
+					"description": "The format of the date string"
+				}
+			},
+		"required": ["date_format"]
+	}
+}

@@ -18,12 +18,30 @@ class ClaudeChat:
             "content": message.strip()
         })
 
+    # Return tool function results back to Claude
+    def returnToolFunctionResult(self, result, tool_use_id):
+        self.messages.append({
+            "role": "user",
+            "content": [{
+                "tool_use_id": tool_use_id,
+                "type": "tool_result",
+                "content": result,
+                "is_error": False
+            }]
+        })
+
     # Store Claude response into the message history
     def claudeResponse(self, response):
-        self.messages.append({
-            "role": "assistant",
-            "content": response.strip()
-        })
+        claude_response = {
+            "role": "assistant"
+        }
+
+        if isinstance(response, list):
+            claude_response["content"] = response
+        else:
+            claude_response["content"] = response.strip()
+        
+        self.messages.append(claude_response)
 
     # Stream Claude's response to show the response generate in the terminal
     def streamClaudeResponse(self, parameters):
@@ -103,5 +121,25 @@ class ClaudeChat:
         else:
             return self.getClaudeResponse(parameters)
         
+    # Make tool enabled API calls
+    def askClaudeWithTools(self, tool_schema, system_prompt=None, streaming=False):
+        parameters = {
+            "model": self.model,
+            "max_tokens": 1000,
+            "messages": self.messages,
+            "tools": [tool_schema]
+        }
+
+        if system_prompt:
+            parameters["system"] = system_prompt
+
+        if self.stop_sequences:
+            parameters["stop_sequences"] = self.stop_sequences
+
+        claude_response = self.client.messages.create(**parameters)
+
+        return claude_response.content
+        
+    
     def clearChatHistory(self):
         self.messages = []
