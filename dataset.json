@@ -1,17 +1,17 @@
 [
   {
-    "content": "Recent advances in CRISPR-Cas9 gene editing have enabled precise modifications to plant genomes, allowing researchers to enhance drought resistance in staple crops such as wheat and maize. These developments hold significant promise for improving global food security amid changing climate conditions.",
-    "format": "text",
-    "solution_criteria": "Should include topics such as CRISPR-Cas9, gene editing, drought resistance, crop improvement, food security, and climate change."
+    "task": "Create a Python function to validate whether a given string is a properly formatted S3 bucket name according to AWS naming rules",
+    "format": "Python",
+    "solution_criteria": "Function accepts a string and returns True or False; enforces length between 3 and 63 characters; only allows lowercase letters, numbers, dots, and hyphens; must start and end with a letter or number; does not allow consecutive periods; does not allow IP address format"
   },
   {
-    "content": "The rise of social media platforms has transformed political discourse, enabling rapid dissemination of information but also facilitating the spread of misinformation. This paper examines how algorithmic curation influences public opinion formation and contributes to increasing polarization among voters.",
-    "format": "text",
-    "solution_criteria": "Should include topics such as social media, political discourse, misinformation, algorithmic curation, public opinion, and polarization."
+    "task": "Write a regex to match and extract the region and service from an AWS ARN string",
+    "format": "Regex",
+    "solution_criteria": "Regex correctly matches strings starting with arn: followed by partition, service, region, account-id, and resource; captures service and region as named or numbered groups; handles optional empty region field"
   },
   {
-    "content": "Deep learning architectures, particularly transformer-based models, have significantly improved natural language processing tasks including machine translation and sentiment analysis. This study evaluates their computational efficiency and proposes optimization techniques to reduce energy consumption during large-scale model training.",
-    "format": "text",
-    "solution_criteria": "Should include topics such as deep learning, transformer models, natural language processing, machine translation, sentiment analysis, and energy efficiency."
+    "task": "Create a JSON object representing an AWS IAM policy that allows read-only access to a specific S3 bucket named 'example-bucket'",
+    "format": "JSON",
+    "solution_criteria": "Valid IAM policy JSON structure with Version and Statement fields; Effect set to Allow; Action includes s3:GetObject and s3:ListBucket; Resource includes ARNs for both the bucket and objects within it"
   }
 ]
