@@ -1,17 +1,17 @@
 [
   {
-    "task": "Write a Python function that takes an S3 bucket name and returns True if it follows valid AWS S3 bucket naming rules, otherwise False",
+    "task": "Create a Python function to validate whether a given string is a properly formatted S3 bucket name according to AWS naming rules",
     "format": "Python",
-    "solution_criteria": "Function correctly validates length between 3 and 63 characters, lowercase letters, numbers, dots and hyphens only, must start and end with a letter or number, no consecutive periods, not formatted as an IP address"
+    "solution_criteria": "Function accepts a string and returns True or False; enforces length between 3 and 63 characters; only allows lowercase letters, numbers, dots, and hyphens; must start and end with a letter or number; does not allow consecutive periods; does not allow IP address format"
   },
   {
-    "task": "Create a JSON IAM policy document that grants read-only access to a specific S3 bucket named 'company-reports' and its objects, but denies access to a subfolder named 'confidential'",
-    "format": "JSON",
-    "solution_criteria": "Valid IAM policy syntax with Version and Statement fields, includes Allow statement for s3:GetObject and s3:ListBucket on the specified bucket and objects, includes explicit Deny statement for the confidential subfolder path, uses correct ARN format for resources"
-  },
-  {
-    "task": "Write a regular expression that matches valid AWS ARN (Amazon Resource Name) strings, such as arn:aws:s3:::my-bucket or arn:aws:lambda:us-east-1:123456789012:function:my-function",
+    "task": "Write a regex to match and extract the region and service from an AWS ARN string",
     "format": "Regex",
-    "solution_criteria": "Regex correctly matches the arn:partition:service:region:account-id:resource pattern, accounts for optional region and account-id fields being empty for some services, correctly handles resource identifiers with colons or slashes"
+    "solution_criteria": "Regex correctly matches strings starting with arn: followed by partition, service, region, account-id, and resource; captures service and region as named or numbered groups; handles optional empty region field"
+  },
+  {
+    "task": "Create a JSON object representing an AWS IAM policy that allows read-only access to a specific S3 bucket named 'example-bucket'",
+    "format": "JSON",
+    "solution_criteria": "Valid IAM policy JSON structure with Version and Statement fields; Effect set to Allow; Action includes s3:GetObject and s3:ListBucket; Resource includes ARNs for both the bucket and objects within it"
   }
 ]
